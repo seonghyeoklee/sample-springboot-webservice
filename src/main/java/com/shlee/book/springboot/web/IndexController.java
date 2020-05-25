@@ -1,5 +1,6 @@
 package com.shlee.book.springboot.web;
 
+import com.shlee.book.springboot.config.auth.LoginUser;
 import com.shlee.book.springboot.config.auth.dto.SessionUser;
 import com.shlee.book.springboot.domain.user.User;
 import com.shlee.book.springboot.service.PostsService;
@@ -20,10 +21,10 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
 
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        //SessionUser user = (SessionUser) httpSession.getAttribute("user");
         if(user != null) {
             model.addAttribute("userName", user.getName());
         }
